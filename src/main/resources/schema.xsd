@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+           xmlns:xs1="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           vc:minVersion="1.1">
+
+    <!-- Root element -->
+    <xs:element name="testsuite">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="testcase" minOccurs="1" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="properties" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="value" type="xs:string" use="required"/>
+                                                <xs:assert test="not(@name='issue-key') or matches(@value, '^[A-Z]{3}-\d{3}$')"
+                                                           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                                                    Value for @name='issue-key' must match format 'ABC-123'.
+                                                </xs:assert>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="failure" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="message" type="xs:string" use="required"/>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="skipped" minOccurs="0"/>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="classname" type="xs:string" use="required"/>
+                        <xs:attribute name="time" type="xs:decimal" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="tests" type="xs:integer" use="required"/>
+            <xs:attribute name="failures" type="xs:integer" use="required"/>
+            <xs:attribute name="errors" type="xs:integer" use="required"/>
+            <xs:attribute name="skipped" type="xs:integer" use="required"/>
+            <xs:attribute name="time" type="xs:decimal" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

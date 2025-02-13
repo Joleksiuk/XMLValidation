@@ -1,0 +1,9 @@
+<testsuite name="ExampleTestSuite" tests="3" failures="1" errors="0" skipped="1" time="0.123">
+    <testcase name="testSuccess" classname="com.example.TestClass" time="0.001"/>
+    <testcase name="testFailure" classname="com.example.TestClass" time="0.002">
+        <properties>
+            <property name="issue-key" value="invalid123"/>
+        </properties>
+        <failure message="Assertion failed">Expected true but was false</failure>
+    </testcase>
+</testsuite>
